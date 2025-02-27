@@ -138,13 +138,13 @@ jobs:
           ./git-repo/repo sync
           
           # set-env
-          FORCE_DL_CACHEPREFIX=/home/mingzq/st DISTRO=openstlinux-weston MACHINE=stm32mp1 source layers/meta-st/scripts/envsetup.sh --pkg-update --no-ui
+          export READTIMEOUT=0; FORCE_DL_CACHEPREFIX=/home/mingzq/st DISTRO=openstlinux-weston MACHINE=stm32mp1 source layers/meta-st/scripts/envsetup.sh --pkg-update --no-ui
           
           # add st-odyssey layer
           bitbake-layers add-layer ../meta-st-odyssey
 
           # build image
-          export READTIMEOUT 0; bitbake st-image-weston
+          bitbake st-image-weston
 
           # make image
           cd tmp-glibc/deploy/images/stm32mp1
