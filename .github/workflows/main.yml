@@ -144,7 +144,7 @@ jobs:
           bitbake-layers add-layer ../meta-st-odyssey
 
           # build image
-          ACCEPT_EULA="*" bitbake st-image-weston
+          export READTIMEOUT 0; bitbake st-image-weston
 
           # make image
           cd tmp-glibc/deploy/images/stm32mp1
