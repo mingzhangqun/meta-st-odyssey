@@ -76,7 +76,7 @@ jobs:
       #     cat $GITHUB_OUTPUT
 
       - name: Install dependencies
-        if: steps.changelog.outputs.skip_workflow == 'false'
+        # if: steps.changelog.outputs.skip_workflow == 'false'
         run: |
           sudo apt-get remove aria2 ansible shellcheck rpm xorriso zsync \
           clang-6.0 lldb-6.0 lld-6.0 clang-format-6.0 clang-8 lldb-8 lld-8 clang-format-8 \
@@ -123,7 +123,7 @@ jobs:
 
       - name: Build "${{ github.event.inputs.tag_name }}"
         id: build
-        if: steps.changelog.outputs.skip_workflow == 'false'
+        # if: steps.changelog.outputs.skip_workflow == 'false'
         run: |
           # echo `pwd`
           # git submodule update --init --recursive --depth 1
@@ -159,7 +159,7 @@ jobs:
 
       - name: Check if release exists
         id: check_release
-        if: steps.changelog.outputs.skip_workflow == 'false'
+        # if: steps.changelog.outputs.skip_workflow == 'false'
         run: |
           # Todo: avoid confilict
           sleep $((RANDOM % 30))
@@ -181,7 +181,8 @@ jobs:
 
       - name: Create release ${{ steps.changelog.outputs.changelog_title }}
         id: create_release
-        if: steps.changelog.outputs.skip_workflow == 'false' && steps.check_release.outputs.tag_exist == 'false'
+        # if: steps.changelog.outputs.skip_workflow == 'false' && steps.check_release.outputs.tag_exist == 'false'
+        if: steps.check_release.outputs.tag_exist == 'false'
         uses: actions/create-release@v1.1.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -194,7 +195,8 @@ jobs:
 
       - name: Upload how_to_update.txt
         uses: actions/upload-release-asset@v1.0.2
-        if: steps.changelog.outputs.skip_workflow == 'false' && steps.uploader.outputs.txt_path != ''
+        # if: steps.changelog.outputs.skip_workflow == 'false' && steps.uploader.outputs.txt_path != ''
+        if: steps.uploader.outputs.txt_path != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -205,7 +207,8 @@ jobs:
 
       - name: Upload raw image
         uses: actions/upload-release-asset@v1.0.2
-        if: steps.changelog.outputs.skip_workflow == 'false' && steps.uploader.outputs.img_path != ''
+        # if: steps.changelog.outputs.skip_workflow == 'false' && steps.uploader.outputs.img_path != ''
+        if: steps.uploader.outputs.img_path != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
