@@ -136,11 +136,15 @@ jobs:
           git clone https://gerrit.googlesource.com/git-repo
           ./git-repo/repo init -u https://github.com/STMicroelectronics/oe-manifest.git -b refs/tags/${{ github.event.inputs.tag_name }}
           ./git-repo/repo sync
+          
           # set-env
           FORCE_DL_CACHEPREFIX=/home/mingzq/st DISTRO=openstlinux-weston MACHINE=stm32mp1 source layers/meta-st/scripts/envsetup.sh --pkg-update --no-ui
+          
           # add st-odyssey layer
           bitbake-layers add-layer ../meta-st-odyssey
-          bitbake st-image-weston
+          echo "n" | bitbake st-image-weston
+
+          # mk image
           cd tmp-glibc/deploy/images/stm32mp1
           # sdcard
           ./scripts/create_sdcard_from_flashlayout.sh flashlayout_st-image-weston/optee/FlashLayout_sdcard_stm32mp157c-odyssey-optee.tsv
