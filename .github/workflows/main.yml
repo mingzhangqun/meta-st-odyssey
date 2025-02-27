@@ -142,9 +142,11 @@ jobs:
           
           # add st-odyssey layer
           bitbake-layers add-layer ../meta-st-odyssey
-          echo "n" | bitbake st-image-weston
 
-          # mk image
+          # build image
+          ACCEPT_EULA="*" bitbake st-image-weston
+
+          # make image
           cd tmp-glibc/deploy/images/stm32mp1
           # sdcard
           ./scripts/create_sdcard_from_flashlayout.sh flashlayout_st-image-weston/optee/FlashLayout_sdcard_stm32mp157c-odyssey-optee.tsv
