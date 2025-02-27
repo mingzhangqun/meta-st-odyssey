@@ -138,7 +138,7 @@ jobs:
           ./git-repo/repo sync
           
           # set-env
-          export READTIMEOUT=0; FORCE_DL_CACHEPREFIX=/home/mingzq/st DISTRO=openstlinux-weston MACHINE=stm32mp1 source layers/meta-st/scripts/envsetup.sh --pkg-update --no-ui
+          export READTIMEOUT=0; DISTRO=openstlinux-weston MACHINE=stm32mp1 source layers/meta-st/scripts/envsetup.sh --pkg-update --no-ui
           
           # add st-odyssey layer
           bitbake-layers add-layer ../meta-st-odyssey
